@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <link rel="shortcut icon" href="">
+    <link rel="stylesheet" type="text/css" href="phonon/css/phonon.css" />
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Tutor Tinder</title>
+</head>
+<body onload="init()">
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="phonon/js/phonon.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+
+    <div id="subject-select-tutor" class="panel-full">
+        <header class="header-bar">
+            <a class="btn icon icon-close pull-right" href="#" data-panel-close="true"></a>
+            <h1 class="title">Select Subjects</h1>
+        </header>
+
+        <div class="content">
+            <ul class="list" id="subject-select-tutor-list">
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <login class="app-page" data-page="true">
+        <header class="header-bar">
+            <div class="center">
+                <h1 class="title">Welcome to Tutor Tinder</h1>
+            </div>
+        </header>
+        <div class="content">
+            <!--<img src="images/logo.png" />-->
+            <div id="login-buttons">
+                <button id="login-signin" class="btn primary">Sign In</button>
+                <button id="login-signup" class="btn">Sign Up</button>
+
+
+
+            </div>
+        </div>
+    </login>
+
+    <!-- SIGN IN PAGE -->
+    <username class="app-page" data-page="true">
+
+        <header class="header-bar">
+            <div class="center">
+                <h1 class="title">Welcome Back!</h1>
+            </div>
+            <a class="btn pull-right icon icon-close" data-navigation="$previous-page"></a>
+        </header>
+        <div class="content padded-full">
+            <div id="profile-general">
+                <input type="text" id="profile-name" placeholder="Username">
+                <input type="password" id="profile-password" placeholder="Password">
+
+            </div>
+        </div>
+    </username>
+
+
+
+
+    <!-- PROFILE EDIT PAGE -->
+    <profile class="app-page" data-page="true">
+        <header class="header-bar">
+            <div class="center">
+                <h1 class="title">Edit Profile</h1>
+            </div>
+            <a class="btn pull-right icon icon-close" data-navigation="$previous-page"></a>
+        </header>
+        <div class="content padded-full">
+            <div id="profile-general">
+                <input type="text" id="profile-name" placeholder="Full Name">
+                <input type="text" id="profile-email" placeholder="Email (username)">
+                <input type="password" id="profile-password" placeholder="Password">
+                <input type="text" id="profile-edlvl" placeholder="Education Level (grade, degree)">
+                <label class="checkbox">
+                    <input type="checkbox" id="profile-default_to_tutor">
+                    <span></span>
+                    <span class="text">Default to Tutor Mode</span>
+                </label>
+            </div>
+            <div id="profile-tutee">
+                <button class="btn fit-parent" id="profile-tutee-select">I want to be tutored in...</button>
+            </div>
+            <div id="profile-tutor">
+                <button class="btn fit-parent" id="profile-tutor-select">I can tutor someone in...</button>
+                <input type="number" id="profile-tutor-price" style="visibility:hidden; display: none" placeholder="Price (per hour)" />
+            </div>
+
+
+            <div id="profile-continue">
+                <button id="profile-continue" class="btn primary">Continue!</button>
+
+             
+
+            </div>
+
+        </div>
+
+    </profile>
+
+    <!-- SIDE MENU -->
+    <div class="side-panel side-panel-left" data-expose-aside="none" data-disable="right" data-page="tutee,tutor" id="side-menu">
+        <header class="header-bar">
+            <button class="btn pull-right icon icon-close" data-side-panel-close="true"></button>
+            <div class="pull-left">
+                <h1 class="title">Tutor Tinder</h1>
+            </div>
+        </header>
+
+        <div class="content">
+            <ul class="list" id="sidemenu-subjects"></ul>
+            <ul class="list">
+                <li><a class="padded-list">Edit Profile</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TUTEE PAGE -->
+    <tutee class="app-page" data-page="true">
+        <header class="header-bar">
+            <a class="btn pull-left icon icon-menu" data-side-panel-id="side-menu"></a>
+            <div class="center">
+                <h1 class="title">Tutee View</h1>
+            </div>
+        </header>
+        <div class="content">
+
+        </div>
+    </tutee>
+
+    <!-- TUTOR PAGE -->
+    <tutor class="app-page" data-page="true">
+        <header class="header-bar">
+            <a class="btn pull-left icon icon-menu" data-side-panel-id="side-menu"></a>
+            <div class="center">
+                <h1 class="title">Tutor View</h1>
+            </div>
+        </header>
+        <div class="content">
+
+        </div>
+    </tutor>
+
+
+
+</body>
+</html>
