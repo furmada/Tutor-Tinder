@@ -5,6 +5,10 @@
     src: local('Material Icons'), local('MaterialIcons-Regular'), url(images/material_icons.woff) format('woff');
 }
 
+header, .primary{
+    background-color: #fe735e !important;
+}
+
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -21,4 +25,31 @@
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'liga';
+}
+
+.tutor-card {
+    width: calc(100% - 28px);
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 1em;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+    .tutor-card button{
+        width: calc(50% - 20px);
+        margin: 10px;
+        font-size: 2em;
+    }
+
+login img{
+    height: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+login button{
+    width: calc(50% - 20px);
+    margin: 5px;
 }

@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -29,6 +28,34 @@
         </div>
     </div>
 
+    <div id="subject-select-tutee" class="panel-full">
+        <header class="header-bar">
+            <a class="btn icon icon-close pull-right" href="#" data-panel-close="true"></a>
+            <h1 class="title">Select Subjects</h1>
+        </header>
+
+        <div class="content">
+            <ul class="list" id="subject-select-tutee-list"></ul>
+        </div>
+    </div>
+
+    <!-- SIDE MENU -->
+    <div class="side-panel side-panel-left" data-expose-aside="none" data-disable="right" data-page="tutee,tutor" id="side-menu">
+        <header class="header-bar">
+            <button class="btn pull-right icon icon-close" data-side-panel-close="true"></button>
+            <div class="pull-left">
+                <h1 class="title">Tutor Tinder</h1>
+            </div>
+        </header>
+
+        <div class="content">
+            <ul class="list" id="sidemenu-subjects"></ul>
+            <ul class="list">
+                <li><a class="padded-list" id="signout-button">Sign Out</a></li>
+            </ul>
+        </div>
+    </div>
+
     <!-- LOGIN PAGE -->
     <login class="app-page" data-page="true">
         <header class="header-bar">
@@ -37,20 +64,16 @@
             </div>
         </header>
         <div class="content">
-            <!--<img src="images/logo.png" />-->
+            <img src="images/logo.png" />
             <div id="login-buttons">
                 <button id="login-signin" class="btn primary">Sign In</button>
                 <button id="login-signup" class="btn">Sign Up</button>
-
-
-
             </div>
         </div>
     </login>
 
     <!-- SIGN IN PAGE -->
     <username class="app-page" data-page="true">
-
         <header class="header-bar">
             <div class="center">
                 <h1 class="title">Welcome Back!</h1>
@@ -59,15 +82,12 @@
         </header>
         <div class="content padded-full">
             <div id="profile-general">
-                <input type="text" id="profile-name" placeholder="Username">
-                <input type="password" id="profile-password" placeholder="Password">
-
+                <input type="text" id="signin-name" placeholder="Username">
+                <input type="password" id="signin-password" placeholder="Password">
+                <button class="btn primary fit-parent" id="signin-btn">Sign In</button>
             </div>
         </div>
     </username>
-
-
-
 
     <!-- PROFILE EDIT PAGE -->
     <profile class="app-page" data-page="true">
@@ -97,45 +117,27 @@
                 <input type="number" id="profile-tutor-price" style="visibility:hidden; display: none" placeholder="Price (per hour)" />
             </div>
 
-
             <div id="profile-continue">
                 <button id="profile-continue" class="btn primary">Continue!</button>
-
-             
-
             </div>
 
         </div>
-
     </profile>
-
-    <!-- SIDE MENU -->
-    <div class="side-panel side-panel-left" data-expose-aside="none" data-disable="right" data-page="tutee,tutor" id="side-menu">
-        <header class="header-bar">
-            <button class="btn pull-right icon icon-close" data-side-panel-close="true"></button>
-            <div class="pull-left">
-                <h1 class="title">Tutor Tinder</h1>
-            </div>
-        </header>
-
-        <div class="content">
-            <ul class="list" id="sidemenu-subjects"></ul>
-            <ul class="list">
-                <li><a class="padded-list">Edit Profile</a></li>
-            </ul>
-        </div>
-    </div>
 
     <!-- TUTEE PAGE -->
     <tutee class="app-page" data-page="true">
         <header class="header-bar">
             <a class="btn pull-left icon icon-menu" data-side-panel-id="side-menu"></a>
             <div class="center">
-                <h1 class="title">Tutee View</h1>
+                <h1 class="title">Student View</h1>
             </div>
+            <a class="btn pull-right icon icon-sync" id="to-tutor-btn"></a>
         </header>
+        
         <div class="content">
+            <div id="tutor-list">
 
+            </div>
         </div>
     </tutee>
 
@@ -146,13 +148,13 @@
             <div class="center">
                 <h1 class="title">Tutor View</h1>
             </div>
+            <a class="btn pull-right icon icon-sync" id="to-tutee-btn"></a>
         </header>
         <div class="content">
+            <div id="student-list">
 
+            </div>
         </div>
     </tutor>
-
-
-
 </body>
 </html>

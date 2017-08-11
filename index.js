@@ -14,11 +14,17 @@ MongoClient.connect(url, function (err, db) {
     console.log("Connected successfully to server");
 
     var storeUser = function (db, user) {
+        console.log("Storing User");
         var coll = db.collection("users");
-        coll.insert(user);
+        console.log("Collection initialized");
+        try {
+            coll.insertMany([user]);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
-    var findTutorsForSubject = function (db, subject) {
+    var findTutorsForSubject = function (db, subject, callback) {
         var coll = db.collection("users");
         var matches = [];
         coll.find({}).toArray(function (err, docs) {
@@ -26,23 +32,65 @@ MongoClient.connect(url, function (err, db) {
                 return;
             }
             docs.forEach(function (user) {
+                if (user.subjects === undefined || user.subjects.tutor === undefined) {
+                    return;
+                }
                 if (user.subjects.tutor.indexOf(subject) != -1) {
-                    matches.push(user);
+                    try {
+                        matches.push(user);
+                    } catch (e) {
+                    }
                 }
             });
+            callback(matches);
         });
-        return matches;
     }
 
-    var findUser = function (db, email) {
+    var findUser = function (db, email, callback) {
         var user = null;
         var coll = db.collection("users");
         coll.find({ "email": email }).toArray(function (err, docs) {
             if (docs != undefined && docs.length > 0) {
-                user = docs[0];
+                callback(docs[0]);
             }
         });
-        return user;
+    }
+
+    var selectTutor = function (db, email, tutor) {
+        var coll = db.collection("users");
+        coll.find({ "email": email }).toArray(function (err, docs) {
+            console.log(docs);
+            if (docs != undefined && docs.length > 0) {
+                if (docs[0].selected_tutors === undefined) {
+                    docs[0].selected_tutors = [];
+                }
+                var sel = docs[0].selected_tutors;
+                sel.push(tutor);
+                coll.updateOne(docs[0], { $set: { selected_tutors: sel } });
+            }
+        });
+    }
+
+    var getTutoredStudents = function (db, email, callback) {
+        var coll = db.collection("users");
+        var matches = [];
+        coll.find({}).toArray(function (err, docs) {
+            if (docs == undefined) {
+                return;
+            }
+            docs.forEach(function (user) {
+                if (user.selected_tutors === undefined) {
+                    return;
+                }
+                if (user.selected_tutors.indexOf(email) != -1) {
+                    try {
+                        matches.push(user);
+                    } catch (e) {
+                    }
+                }
+            });
+            callback(matches);
+        });
     }
 
     app.use(bodyParser.json());
@@ -55,17 +103,36 @@ MongoClient.connect(url, function (err, db) {
             res.set('Content-Type', 'application/json');
             res.set("Access-Control-Allow-Origin", "*");
             res.send({ success: true });
+            return;
         }
         if (req.body.find_tutors != undefined) {
             res.set('Content-Type', 'application/json');
             res.set("Access-Control-Allow-Origin", "*");
-            res.send({ tutors: findTutorsForSubject(db, req.body.find_tutors) });
+            findTutorsForSubject(db, req.body.find_tutors, (d) => res.send({ tutors: d }));
+            return;
         }
         if (req.body.get_user != undefined) {
             res.set('Content-Type', 'application/json');
             res.set("Access-Control-Allow-Origin", "*");
-            res.send({ user: findUser(db, req.body.get_user) });
+            findUser(db, req.body.get_user, (u) => res.send(u));
+            return;
         }
+        if (req.body.sel_tutor != undefined) {
+            res.set('Content-Type', 'application/json');
+            res.set("Access-Control-Allow-Origin", "*");
+            selectTutor(db, req.body.sel_tutor, req.body.selected_tutor);
+            res.send({ success: true });
+            return;
+        }
+        if (req.body.tutored_students != undefined) {
+            res.set('Content-Type', 'application/json');
+            res.set("Access-Control-Allow-Origin", "*");
+            getTutoredStudents(db, req.body.tutored_students, (d) => res.send({ tutors: d }));
+            return;
+        }
+        res.set('Content-Type', 'application/json');
+        res.set("Access-Control-Allow-Origin", "*");
+        res.send({error: "No Body"})
     });
 
     app.use("/", express.static("static"));
@@ -74,6 +141,5 @@ MongoClient.connect(url, function (err, db) {
         console.log('Example app listening on port 3000!')
     });
 
-    db.close();
 });
 
